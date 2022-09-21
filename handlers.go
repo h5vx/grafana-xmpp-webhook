@@ -78,7 +78,7 @@ func AlertHandler(c *fiber.Ctx) error {
 	renderedAlert := renderBuf.String()
 	renderedAlert = strings.Trim(renderedAlert, " \n")
 
-	RoomSendMessage(GlobalConfig.Xmpp.Room, alert.Message)
+	RoomSendMessage(GlobalConfig.Xmpp.Room, renderedAlert)
 
 	fmt.Println("Sending alert:", renderedAlert)
 	fmt.Println(strings.Repeat("*", 80))
