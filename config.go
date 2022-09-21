@@ -7,13 +7,14 @@ import (
 )
 
 type XmppConfig struct {
-	Enabled  bool
-	Server   string
-	Jid      string
-	Password string
-	Room     string
-	TLS      bool
-	Nickname string
+	Enabled         bool
+	Server          string
+	Jid             string
+	Password        string
+	Room            string
+	TLS             bool
+	TLS_Skip_Verify bool
+	Nickname        string
 }
 
 type HttpConfig struct {

@@ -6,6 +6,7 @@ password = "mypassword"
 room = "alerts@conference.example.com"
 nickname = "alerts"
 tls = true
+tls_skip_verify = true
 
 [http]
 listen_address = "127.0.0.1:3033"

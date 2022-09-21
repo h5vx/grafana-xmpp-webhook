@@ -1,8 +1,10 @@
 package main
 
 import (
+	"crypto/tls"
 	"fmt"
 	"log"
+	"os"
 
 	"gosrc.io/xmpp"
 	"gosrc.io/xmpp/stanza"
@@ -39,12 +41,13 @@ func ConnectToXmpp() error {
 
 	config := xmpp.Config{
 		TransportConfiguration: xmpp.TransportConfiguration{
-			Address: GlobalConfig.Xmpp.Server,
+			Address:   GlobalConfig.Xmpp.Server,
+			TLSConfig: &tls.Config{InsecureSkipVerify: GlobalConfig.Xmpp.TLS_Skip_Verify},
 		},
-		Jid:        GlobalConfig.Xmpp.Jid,
-		Credential: xmpp.Password(GlobalConfig.Xmpp.Password),
-		// StreamLogger: os.Stdout,
-		Insecure: !GlobalConfig.Xmpp.TLS,
+		Jid:          GlobalConfig.Xmpp.Jid,
+		Credential:   xmpp.Password(GlobalConfig.Xmpp.Password),
+		StreamLogger: os.Stdout,
+		Insecure:     !GlobalConfig.Xmpp.TLS,
 	}
 
 	router := xmpp.NewRouter()
