@@ -2,12 +2,13 @@ FROM golang:1.19-buster as build
 
 WORKDIR /app
 
-COPY .git go.mod go.sum *.go ./
+COPY go.mod go.sum *.go ./
+
+ARG GIT_SHA
 
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 \
-    GIT_COMMIT=$(git rev-parse --short HEAD) \
     go build \
-        -ldflags="-w -s -extldflags '-static' -X main.PackageCommitHash=$GIT_COMMIT" \
+        -ldflags="-w -s -extldflags '-static' -X main.PackageCommitHash=${GIT_SHA}" \
         -a -o grafana-xmpp-webhook *.go
 
 
