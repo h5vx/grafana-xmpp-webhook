@@ -2,8 +2,11 @@ name: Publish Docker image
 
 on:
   push:
+    tags:
+      - 'v*'
+  pull_request:
     branches:
-      - master
+      - 'master'
 
 jobs:
   push_to_registry:
