@@ -1,0 +1,24 @@
+[xmpp]
+enabled = true
+server = "example.com"
+jid = "user@example.com/resource"
+password = "mypassword"
+room = "alerts@conference.example.com"
+nickname = "alerts"
+tls = true
+
+[http]
+listen_address = "127.0.0.1:3033"
+
+[alerting]
+template = """
+Alarm!
+{{range $alert := .Alerts}}
+{{- if eq $alert.Status "firing"}}🔥 FIRING: {{else}}✅ Resolved: {{end -}}
+{{$alert.Annotations.description}}
+    Starts at {{$alert.StartsAt.Format "15:04:05 01.02.2006"}}
+    {{ if ne "0001" ($alert.EndsAt.Format "2006") -}}
+    Ends at {{$alert.EndsAt.Format "15:04:05 01.02.2006"}} ({{$alert.EndsAt.Sub $alert.StartsAt}})
+    {{end}}
+{{end -}}
+"""
