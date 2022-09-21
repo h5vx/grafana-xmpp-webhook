@@ -98,7 +98,7 @@ func RoomLeave(room string, nickname string) {
 func handleIq(s xmpp.Sender, p stanza.Packet) {
 	iq := p.(*stanza.IQ)
 
-	if iq.Payload.Namespace() == "jabber:iq:version" {
+	if iq.Payload != nil && iq.Payload.Namespace() == "jabber:iq:version" {
 		if iq.From == iq.To {
 			return
 		}
