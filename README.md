@@ -26,7 +26,7 @@ services:
     image: h5vx/grafana-xmpp-webhook:latest
     container_name: xmpp-webhook
     volumes:
-      - ./grafana-xmpp-webhook.toml:/config.toml
+      - ./config.toml:/config.toml
     restart: unless-stopped
     networks:
       - monitoring

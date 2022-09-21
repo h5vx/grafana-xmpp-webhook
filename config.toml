@@ -16,7 +16,7 @@ template = """
 Alarm!
 {{range $alert := .Alerts}}
 {{- if eq $alert.Status "firing"}}🔥 FIRING: {{else}}✅ Resolved: {{end -}}
-{{$alert.Annotations.description}}
+{{or $alert.Annotations.description $alert.Annotations.summary}}
     Starts at {{$alert.StartsAt.Format "15:04:05 01.02.2006"}}
     {{ if ne "0001" ($alert.EndsAt.Format "2006") -}}
     Ends at {{$alert.EndsAt.Format "15:04:05 01.02.2006"}} ({{$alert.EndsAt.Sub $alert.StartsAt}})
